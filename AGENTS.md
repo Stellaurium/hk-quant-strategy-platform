@@ -3,9 +3,9 @@
 ## Project Structure & Module Organization
 - Core package: `lib/hk_quant_strategy_platform/` (fetchers, crawler, bundle, storage, refresh, analysis helpers).
 - Single source of truth: do all code changes in `lib/hk_quant_strategy_platform/`.
-- Tests live under `lib/` (for example `lib/test_storage.py`, `lib/test_refresh_module.py`).
+- Tests live under `src/test/` (for example `src/test/test_storage.py`, `src/test/test_refresh_module.py`).
 - Data assets live in `stock_data/` (`globals/`, `tickers/<code>/datasets/*.parquet`, mapping `.jsonl`).
-- Research notebook: `烟蒂股筛选.ipynb`.
+- Research notebook: `src/notebooks/hk_value_screening.ipynb`.
 
 ## Build, Test, and Development Commands
 - Create environment and install dev deps:
@@ -37,7 +37,7 @@ pip install -e .
 - Keep modules focused: I/O in fetch/crawl/storage, strategy logic in analyzer modules.
 
 ## Testing Guidelines
-- Framework: `pytest` (`pytest.ini`: `testpaths = lib`, `python_files = test_*.py`).
+- Framework: `pytest` (`pytest.ini`: `testpaths = src/test`, `python_files = test_*.py`).
 - Test names: `test_<behavior>()`.
 - Add regression tests for parquet schema, manifest handling, and bundle comparisons.
 

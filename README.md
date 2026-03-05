@@ -4,7 +4,7 @@
 
 - `lib/hk_quant_strategy_platform/`: 数据抓取、存储、刷新、分析核心模块
 - `stock_data/`: 示例数据（精简版）
-- `烟蒂股筛选.ipynb`: 研究与筛选 notebook
+- `src/notebooks/hk_value_screening.ipynb`: 研究与筛选 notebook
 
 ## 1. 环境要求
 
@@ -72,4 +72,3 @@ git branch -M main
 git remote add origin <YOUR_GITHUB_REPO_URL>
 git push -u origin main
 ```
-
