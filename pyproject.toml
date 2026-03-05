@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hk-value-platform"
+version = "0.1.0"
+description = "Hong Kong stock data pipeline and strategy research toolkit."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "akshare>=1.16",
+  "pandas>=2.2",
+  "pyarrow>=16.0",
+  "tqdm>=4.66",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["lib"]
+include = ["stock_data_analysis*"]

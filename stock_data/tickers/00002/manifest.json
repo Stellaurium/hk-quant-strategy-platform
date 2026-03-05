@@ -1,0 +1,54 @@
+{
+  "ticker": "00002",
+  "asof": "2026-02-19T20:50:20.524966+00:00",
+  "datasets": {
+    "company_profile": {
+      "path": "company_profile.parquet",
+      "rows": 1,
+      "cols": 20,
+      "updated_at": "2026-02-19T20:50:21.521828+00:00"
+    },
+    "security_profile": {
+      "path": "security_profile.parquet",
+      "rows": 1,
+      "cols": 17,
+      "updated_at": "2026-02-19T20:50:21.524502+00:00"
+    },
+    "financial_bs_yearly": {
+      "path": "financial_bs_yearly.parquet",
+      "rows": 1052,
+      "cols": 14,
+      "updated_at": "2026-02-19T20:50:21.528702+00:00"
+    },
+    "financial_is_yearly": {
+      "path": "financial_is_yearly.parquet",
+      "rows": 638,
+      "cols": 14,
+      "updated_at": "2026-02-19T20:50:21.530481+00:00"
+    },
+    "financial_cf_yearly": {
+      "path": "financial_cf_yearly.parquet",
+      "rows": 808,
+      "cols": 14,
+      "updated_at": "2026-02-19T20:50:21.530481+00:00"
+    },
+    "dividend_history": {
+      "path": "dividend_history.parquet",
+      "rows": 176,
+      "cols": 12,
+      "updated_at": "2026-02-19T20:50:21.530481+00:00"
+    },
+    "financial_indicator_snapshot": {
+      "path": "financial_indicator_snapshot.parquet",
+      "rows": 1,
+      "cols": 24,
+      "updated_at": "2026-02-19T20:50:21.530481+00:00"
+    }
+  },
+  "meta": {
+    "indicator": "年度",
+    "fetcher_count": 7
+  },
+  "errors": {},
+  "updated_at": "2026-02-19T20:50:21.530481+00:00"
+}
