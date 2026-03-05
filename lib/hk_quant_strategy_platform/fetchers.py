@@ -184,9 +184,9 @@ def build_ticker_fetchers(*, indicator: str = "年度") -> Dict[str, Fetcher]:
     return {
         "company_profile": company_profile,
         "security_profile": security_profile,
-        "financial_bs_yearly": lambda t: financial_report(t, "资产负债表", indicator="年度"),
-        "financial_is_yearly": lambda t: financial_report(t, "利润表", indicator="年度"),
-        "financial_cf_yearly": lambda t: financial_report(t, "现金流量表", indicator="年度"),
+        "financial_bs_yearly": lambda t: financial_report(t, "资产负债表", indicator=indicator),
+        "financial_is_yearly": lambda t: financial_report(t, "利润表", indicator=indicator),
+        "financial_cf_yearly": lambda t: financial_report(t, "现金流量表", indicator=indicator),
         "dividend_history": dividend_history,
         "financial_indicator_snapshot": financial_indicator_snapshot,
     }

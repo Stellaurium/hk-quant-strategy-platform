@@ -10,7 +10,7 @@ import pytest
 
 from lib.hk_quant_strategy_platform.storage import ParquetStore, StorageError
 from lib.hk_quant_strategy_platform.bundle import Bundle
-from lib.hk_quant_strategy_platform.test_utils import compare_bundles
+from lib.hk_quant_strategy_platform.diagnostic_utils import compare_bundles
 
 
 # ----------------------------

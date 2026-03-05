@@ -229,6 +229,11 @@ def write_bundle(
         return
 
     if strategy == "update_datasets":
+        # First partial refresh for a brand-new ticker has no manifest yet.
+        # Bootstrap it with a full bundle save, then subsequent runs can patch datasets.
+        if not store.exists_ticker(bundle.ticker):
+            store.save_bundle(bundle, overwrite=True, prune=False)
+            return
         for name, df in bundle.data.items():
             store.update_dataset(bundle.ticker, name, df, must_exist=False, update_asof=update_asof)
         return
@@ -704,4 +709,3 @@ spot_df, result = refresh_market(
     # subset defaults to strategy=update_datasets (safe), prune forced False
 )
 """
-

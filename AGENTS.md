@@ -3,7 +3,7 @@
 ## Project Structure & Module Organization
 - Core package: `lib/hk_quant_strategy_platform/` (fetchers, crawler, bundle, storage, refresh, analysis helpers).
 - Single source of truth: do all code changes in `lib/hk_quant_strategy_platform/`.
-- Tests live under `lib/` (for example `lib/test_storage.py`, `lib/test_utils.py`).
+- Tests live under `lib/` (for example `lib/test_storage.py`, `lib/test_refresh_module.py`).
 - Data assets live in `stock_data/` (`globals/`, `tickers/<code>/datasets/*.parquet`, mapping `.jsonl`).
 - Research notebook: `烟蒂股筛选.ipynb`.
 

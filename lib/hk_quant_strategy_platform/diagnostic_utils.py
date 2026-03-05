@@ -1,4 +1,4 @@
-# stock_data_analysis/lib/test_utils.py
+# hk_quant_strategy_platform/diagnostic_utils.py
 """
 存放测试/诊断函数，检验程序是否正常运行，并提供直观理解。
 
