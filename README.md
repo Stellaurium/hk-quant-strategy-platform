@@ -1,18 +1,15 @@
-# HK Value Platform
+﻿# HK Quant Strategy Platform
 
-一个可独立运行的港股数据抓取与策略研究仓库。当前已包含：
+涓€涓彲鐙珛杩愯鐨勬腐鑲℃暟鎹姄鍙栦笌绛栫暐鐮旂┒浠撳簱銆傚綋鍓嶅凡鍖呭惈锛?
+- `lib/hk_quant_strategy_platform/`: 鏁版嵁鎶撳彇銆佸瓨鍌ㄣ€佸埛鏂般€佸垎鏋愭牳蹇冩ā鍧?- `stock_data/`: 绀轰緥鏁版嵁锛堢簿绠€鐗堬級
+- `鐑熻拏鑲＄瓫閫?ipynb`: 鐮旂┒涓庣瓫閫?notebook
 
-- `lib/stock_data_analysis/`: 数据抓取、存储、刷新、分析核心模块
-- `stock_data/`: 示例数据（精简版）
-- `烟蒂股筛选.ipynb`: 研究与筛选 notebook
-
-## 1. 环境要求
+## 1. 鐜瑕佹眰
 
 - Python `3.11+`
-- Windows / macOS / Linux 均可
+- Windows / macOS / Linux 鍧囧彲
 
-## 2. 快速开始
-
+## 2. 蹇€熷紑濮?
 ```bash
 python -m venv .venv
 # Windows
@@ -23,24 +20,22 @@ python -m venv .venv
 pip install -r requirements-dev.txt
 ```
 
-## 3. 运行测试
+## 3. 杩愯娴嬭瘯
 
 ```bash
 pytest
 ```
 
-## 4. Notebook/脚本中的数据目录
+## 4. Notebook/鑴氭湰涓殑鏁版嵁鐩綍
 
-默认示例数据目录是仓库根目录下的 `stock_data/`。
-
-建议把 notebook 里类似下面的硬编码路径：
+榛樿绀轰緥鏁版嵁鐩綍鏄粨搴撴牴鐩綍涓嬬殑 `stock_data/`銆?
+寤鸿鎶?notebook 閲岀被浼间笅闈㈢殑纭紪鐮佽矾寰勶細
 
 ```python
 r"E:\Program\Python\stock\data\stock_data"
 ```
 
-改成相对路径或环境变量，例如：
-
+鏀规垚鐩稿璺緞鎴栫幆澧冨彉閲忥紝渚嬪锛?
 ```python
 from pathlib import Path
 import os
@@ -48,21 +43,18 @@ import os
 storage_dir = Path(os.getenv("HK_VALUE_DATA_DIR", "stock_data")).resolve()
 ```
 
-## 5. 打包安装（可选）
+## 5. 鎵撳寘瀹夎锛堝彲閫夛級
 
-如果希望在任何目录都能 `import stock_data_analysis`：
-
+濡傛灉甯屾湜鍦ㄤ换浣曠洰褰曢兘鑳?`import hk_quant_strategy_platform`锛?
 ```bash
 pip install -e .
 ```
 
-## 6. GitHub 仓库建议
+## 6. GitHub 浠撳簱寤鸿
 
-- 不要提交 `.venv/`（已在 `.gitignore`）
-- 不要提交本地密钥或 `.env`
-- 当前示例数据可以提交；若后续数据体积很大，建议使用 Git LFS 或将全量数据放对象存储
-
-## 7. 初始化并推送到 GitHub
+- 涓嶈鎻愪氦 `.venv/`锛堝凡鍦?`.gitignore`锛?- 涓嶈鎻愪氦鏈湴瀵嗛挜鎴?`.env`
+- 褰撳墠绀轰緥鏁版嵁鍙互鎻愪氦锛涜嫢鍚庣画鏁版嵁浣撶Н寰堝ぇ锛屽缓璁娇鐢?Git LFS 鎴栧皢鍏ㄩ噺鏁版嵁鏀惧璞″瓨鍌?
+## 7. 鍒濆鍖栧苟鎺ㄩ€佸埌 GitHub
 
 ```bash
 git init
@@ -72,4 +64,5 @@ git branch -M main
 git remote add origin <YOUR_GITHUB_REPO_URL>
 git push -u origin main
 ```
+
 

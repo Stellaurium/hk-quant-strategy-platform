@@ -1,9 +1,9 @@
-[build-system]
+﻿[build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hk-value-platform"
+name = "hk-quant-strategy-platform"
 version = "0.1.0"
 description = "Hong Kong stock data pipeline and strategy research toolkit."
 readme = "README.md"
@@ -20,4 +20,6 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["lib"]
-include = ["stock_data_analysis*"]
+include = ["hk_quant_strategy_platform*"]
+
+
