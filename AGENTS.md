@@ -1,49 +1,51 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Core package: `lib/hk_quant_strategy_platform/` (data fetching, bundling, storage, refresh, analysis helpers).
-- Legacy mirrors exist in `lib/` and `lib/stock_data_analysis/`; make changes in `hk_quant_strategy_platform` first and only sync others when required.
-- Tests currently live under `lib/` and package subfolders (for example `lib/test_storage.py`, `lib/hk_quant_strategy_platform/test_utils.py`).
-- Data assets are in `stock_data/` (`globals/`, `tickers/<code>/datasets/*.parquet`, mapping `.jsonl` files).
+- Core package: `lib/hk_quant_strategy_platform/` (fetchers, crawler, bundle, storage, refresh, analysis helpers).
+- Single source of truth: do all code changes in `lib/hk_quant_strategy_platform/`.
+- Tests live under `lib/` (for example `lib/test_storage.py`, `lib/test_utils.py`).
+- Data assets live in `stock_data/` (`globals/`, `tickers/<code>/datasets/*.parquet`, mapping `.jsonl`).
 - Research notebook: `烟蒂股筛选.ipynb`.
 
 ## Build, Test, and Development Commands
 - Create environment and install dev deps:
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+# source .venv/bin/activate
 pip install -r requirements-dev.txt
 ```
-- Run tests:
+- Run all tests:
 ```bash
 pytest
 ```
-- Run a subset while iterating:
+- Run a subset:
 ```bash
 pytest -k storage
 ```
-- Install package in editable mode for imports from any working directory:
+- Editable install:
 ```bash
 pip install -e .
 ```
 
 ## Coding Style & Naming Conventions
-- Python 3.11+ with 4-space indentation, PEP 8 naming (`snake_case` for functions/modules, `PascalCase` for classes, `UPPER_CASE` constants).
-- Keep ticker identifiers zero-padded to 5 digits (e.g., `"00001"`) to match storage layout.
-- Prefer type hints for public functions and dataclass-style structured objects where already used.
-- Keep modules focused: fetchers/crawlers for I/O, storage for persistence, analyzer modules for strategy logic.
+- Python, 4-space indentation, PEP 8 naming.
+- Keep ticker identifiers zero-padded to 5 digits (e.g., `"00001"`).
+- Prefer type hints on public functions.
+- Keep modules focused: I/O in fetch/crawl/storage, strategy logic in analyzer modules.
 
 ## Testing Guidelines
-- Framework: `pytest` (`pytest.ini` sets `testpaths = lib`, `python_files = test_*.py`).
-- Name tests `test_<behavior>()`; keep fixtures deterministic (see fixed timestamps used in storage tests).
-- Add regression tests for any change touching parquet schema, manifest handling, or bundle comparisons.
+- Framework: `pytest` (`pytest.ini`: `testpaths = lib`, `python_files = test_*.py`).
+- Test names: `test_<behavior>()`.
+- Add regression tests for parquet schema, manifest handling, and bundle comparisons.
 
 ## Commit & Pull Request Guidelines
-- Existing history uses short, single-line summaries in either English or Chinese.
-- Prefer imperative, scoped messages like `storage: fix manifest prune behavior`.
-- PRs should include: purpose, key files changed, test evidence (`pytest` output summary), and data-impact notes (schema/path/backfill effects).
-- Link related issues/tasks; include notebook screenshots only when UI/visual outputs changed.
+- Use short imperative commit messages, scoped by module when possible.
+- PR should include purpose, key file changes, and test evidence (`pytest` summary).
+- Note any data-impact changes (schema/path/backfill).
 
 ## Security & Configuration Tips
-- Do not commit secrets, local `.env`, or private API keys.
-- Keep large raw datasets out of Git; use the curated `stock_data/` sample footprint unless explicitly planning a data migration.
+- Do not commit secrets, local `.env`, or API keys.
+- Keep large raw datasets out of Git; commit only curated sample footprints.

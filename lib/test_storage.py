@@ -1,5 +1,5 @@
-﻿# 鍗曞厓娴嬭瘯鏂囦欢, 娴嬭瘯浜唖torage鏂囦欢鐨勫悇涓嚱鏁? 鍩烘湰涓婂彲鐢?
-# 浣跨敤pytest, 鍙湁test寮€澶磑r缁撳熬鐨勬枃浠剁殑 test寮€澶寸殑鍑芥暟鎵嶆槸娴嬭瘯鍑芥暟
+# 单元测试文件, 测试了storage文件的各个函数, 基本上可用
+# 使用pytest, 只有test开头or结尾的文件的 test开头的函数才是测试函数
 
 import shutil
 from datetime import datetime, timezone
@@ -44,7 +44,7 @@ def make_bundle(ticker: str, keys=("a", "b", "c")) -> Bundle:
         ticker=str(ticker).zfill(5),
         asof=_dt(1),
         data=data,
-        meta={"indicator": "骞村害", "fetcher_count": len(keys)},
+        meta={"indicator": "年度", "fetcher_count": len(keys)},
         errors={},
     )
 
@@ -138,7 +138,7 @@ def test_update_dataset_must_exist_false_allows_new_key(store: ParquetStore):
     b1 = make_bundle("00001", keys=("a",))
     store.save_bundle(b1)
 
-    df_new = make_df("NEW")  # 榛樿 n=3
+    df_new = make_df("NEW")  # 默认 n=3
     store.update_dataset("00001", "new_key", df_new, must_exist=False)
 
     b2 = store.load_bundle("00001")
@@ -194,7 +194,7 @@ def test_prune_removes_stale_datasets(store: ParquetStore):
 
 
 def test_globals_roundtrip(store: ParquetStore):
-    df = pd.DataFrame({"浠ｇ爜": ["00001", "00882"], "鏈€鏂颁环": [10.0, 2.0]})
+    df = pd.DataFrame({"代码": ["00001", "00882"], "最新价": [10.0, 2.0]})
     store.save_global_df("hk_spot_all", df, overwrite=True)
 
     df2 = store.load_global_df("hk_spot_all")
@@ -236,4 +236,3 @@ def test_errors_semantics(store: ParquetStore):
     store.save_bundle(b1, overwrite=True)
     with pytest.raises(Exception):
         store.save_bundle(b1, overwrite=False)
-

@@ -1,4 +1,4 @@
-﻿# lib/stock_data_analysis/refresh.py
+# lib/stock_data_analysis/refresh.py
 """
 Batch refresh pipeline for HK stock datasets:
 - update global hk_spot_all once
@@ -107,7 +107,7 @@ def extract_tickers_from_spot(
     if df is None or not isinstance(df, pd.DataFrame) or df.empty:
         return []
 
-    col_candidates = ["浠ｇ爜", "SECURITY_CODE", "stock", "ticker"]
+    col_candidates = ["代码", "SECURITY_CODE", "stock", "ticker"]
     col = next((c for c in col_candidates if c in df.columns), None)
     if col is None:
         raise ValueError(f"Cannot find ticker column in hk_spot_all df. Tried: {col_candidates}")
@@ -363,7 +363,7 @@ def refresh_tickers(
                 raise
 
         if sleep_s > 0:
-            jitter = random.uniform(0, sleep_s * 0.3)  # 0~30% 鎶栧姩
+            jitter = random.uniform(0, sleep_s * 0.3)  # 0~30% 抖动
             time.sleep(sleep_s + jitter)
 
     if progress:
@@ -412,7 +412,7 @@ def refresh_market(
 
     1) Only update global hk_spot_all:
         mode="global_only"
-        鍏稿瀷鐢ㄦ硶:
+        典型用法:
         spot_df, result = refresh_market(
             store, fetchers,
             mode="global_only",
@@ -424,8 +424,8 @@ def refresh_market(
         mode="tickers_only", tickers=None
         (if global missing and ticker=None and refresh_spot=False, raise ERROR,
         to fix set refresh_spot=True and provide hk_spot_all_fetcher)
-        ticker = None 浣跨敤global鐨刪k_spot_all涓殑list
-        ticker not None 浣跨敤鎸囧畾鐨?ticker, 鍙互鐢ㄤ綔娴嬭瘯
+        ticker = None 使用global的hk_spot_all中的list
+        ticker not None 使用指定的 ticker, 可以用作测试
 
     3) Update global then update tickers:
         mode="global_then_tickers"
@@ -448,28 +448,28 @@ def refresh_market(
         If provided, use this list; else derive from store's global hk_spot_all.
     datasets:
         None for all, or subset list for partial updates.
-        鍙互閮ㄥ垎鏇存柊data鐨刱ey, 瀹炵幇涓€閮ㄥ垎鏃舵晥鎬ф暟鎹殑鏇存柊, 渚嬪 financial_indicator_snapshot
+        可以部分更新data的key, 实现一部分时效性数据的更新, 例如 financial_indicator_snapshot
     incremental:
         Resume logic: complete tickers are skipped.
     strategy:
         None -> defaults: full => save_bundle, subset => update_datasets
-        涓嶇敤鎵嬪姩璁剧疆, 浠栦細鑷姩閫夋嫨鐨?
+        不用手动设置, 他会自动选择的
     prune:
         Only used for save_bundle (subset update will force prune=False for safety).
-        鍒犲幓澶氫綑鐨? dict涓病鏈夌殑df
+        删去多余的, dict中没有的df
     update_asof_on_update_datasets:
         If strategy=update_datasets, whether to bump asof on each dataset update.
         For snapshot updates, set True.
 
-    甯歌鐢ㄦ硶:
-    # 鍙洿鏂?global 渚嬪姣忓ぉ涓€娆?
+    常见用法:
+    # 只更新 global 例如每天一次
     refresh_market(
         store, fetchers,
         mode="global_only",
         hk_spot_all_fetcher=hk_spot_all,
     )
 
-    # 鍏ㄥ競鍦烘柇鐐圭画浼狅紙涓嶆洿鏂?global锛?
+    # 全市场断点续传（不更新 global）
     refresh_market(
         store, fetchers,
         mode="tickers_only",
@@ -478,17 +478,17 @@ def refresh_market(
         sleep_s=0.7,
     )
 
-    # 鍏ㄩ噺閲嶅缓锛堝厛鏇存柊 global锛屽啀鍏ㄩ儴閲嶆姄锛?
+    # 全量重建（先更新 global，再全部重抓）
     refresh_market(
         store, fetchers,
         mode="global_then_tickers",
         hk_spot_all_fetcher=hk_spot_all,
         incremental=False,
-        prune=False,     # 鍏堝埆 prune锛岀ǔ瀹氬悗鍐嶈€冭檻
+        prune=False,     # 先别 prune，稳定后再考虑
         sleep_s=0.7,
     )
 
-    # 鍙洿鏂板揩鐓ф暟鎹紙financial_indicator_snapshot锛?
+    # 只更新快照数据（financial_indicator_snapshot）
     refresh_market(
         store, fetchers,
         mode="tickers_only",
@@ -583,7 +583,7 @@ def refresh_market(
 # ----------------------------
 # Convenience wrappers
 # ----------------------------
-# 杩炲甫妫€鏌icker鏄惁鏄偂绁?鐢ㄤ簡30鍒嗛挓
+# 连带检查ticker是否是股票 用了30分钟
 def refresh_global_only(
     store: ParquetStore,
     *,
@@ -594,7 +594,7 @@ def refresh_global_only(
     return update_global_hk_spot_all(store, hk_spot_all_fetcher=hk_spot_all_fetcher, overwrite=True, global_key=global_key)
 
 
-# 灏辨槸灏佽浜嗕竴灞? 娌℃湁杩欎釜鍑芥暟涔熻, 鍑忓皯璁ょ煡鐨勮礋鎷?
+# 就是封装了一层, 没有这个函数也行, 减少认知的负担
 def refresh_financial_indicator_snapshot_only(
     store: ParquetStore,
     fetchers: Fetchers,
@@ -656,7 +656,7 @@ from lib.hk_quant_strategy_platform.refresh import (
 )
 
 store = ParquetStore(r"E:\data\hk_quant_strategy_store")
-fetchers = build_ticker_fetchers(indicator="骞村害")
+fetchers = build_ticker_fetchers(indicator="年度")
 
 # 1) Only update global hk_spot_all
 df_spot = refresh_global_only(store, hk_spot_all_fetcher=hk_spot_all)
@@ -704,6 +704,4 @@ spot_df, result = refresh_market(
     # subset defaults to strategy=update_datasets (safe), prune forced False
 )
 """
-
-
 

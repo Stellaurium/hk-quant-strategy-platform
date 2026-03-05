@@ -1,4 +1,4 @@
-﻿# Python caches
+# Python caches
 __pycache__/
 *.py[cod]
 *$py.class
@@ -33,3 +33,7 @@ Thumbs.db
 # Data directory: keep folder, ignore large contents
 stock_data/**
 !stock_data/.gitkeep
+
+*.pyo
+*.pyd
+*.iml

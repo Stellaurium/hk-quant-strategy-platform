@@ -1,4 +1,4 @@
-﻿[build-system]
+[build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
@@ -7,7 +7,7 @@ name = "hk-quant-strategy-platform"
 version = "0.1.0"
 description = "Hong Kong stock data pipeline and strategy research toolkit."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
   "akshare>=1.16",
   "pandas>=2.2",
